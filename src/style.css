@@ -1,9 +1,7 @@
 :root {
-    /* Light theme variables */
     --bg-primary: #ffffff;
     --bg-secondary: #f8f9fa;
-    --text-primary: #2c3e50;
-    --text-secondary: #6c757d;
+    --text-secondary: #4a4a4a;
     --accent-primary: #3498db;
     --accent-secondary: #2ecc71;
     --border-color: #e9ecef;
@@ -12,17 +10,6 @@
     --expense-color: #e74c3c;
     --warning-color: #f1c40f;
     --modal-bg: rgba(0, 0, 0, 0.5);
-}
-
-[data-theme="dark"] {
-    --bg-primary: rgba(26, 26, 26, 0.95);
-    --bg-secondary: rgba(45, 45, 45, 0.95);
-    --text-primary: #ffffff;
-    --text-secondary: #e0e0e0;
-    --accent-primary: #3498db;
-    --accent-secondary: #2ecc71;
-    --border-color: #404040;
-    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 * {
@@ -34,7 +21,7 @@
 body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background: linear-gradient(135deg, #E1FFE1 0%, #ffffff 100%);
-    color: var(--text-primary);
+    color: #1a1a1a;
     line-height: 1.6;
     transition: background-color 0.3s, color 0.3s;
     min-height: 100vh;
@@ -60,14 +47,14 @@ header {
 
 header h1 {
     font-size: 2rem;
-    color: var(--text-primary);
+    color: #1a1a1a;
     font-weight: 700;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Section Headers */
 section h2 {
-    color: var(--text-primary);
+    color: #1a1a1a;
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
@@ -78,7 +65,7 @@ section h2 {
 .theme-toggle button {
     background: none;
     border: none;
-    color: var(--text-primary);
+    color: #1a1a1a;
     font-size: 1.5rem;
     cursor: pointer;
     padding: 0.5rem;
@@ -111,13 +98,18 @@ section h2 {
 
 .card h3 {
     margin-bottom: 0.5rem;
-    color: var(--text-primary);
+    color: #1a1a1a;
     font-weight: 600;
 }
 
 .card .amount {
     font-size: 1.5rem;
     font-weight: bold;
+    color: #1a1a1a;
+}
+
+.card p {
+    color: #1a1a1a;
 }
 
 .income-card i {
@@ -171,7 +163,7 @@ section h2 {
     border: 1px solid var(--border-color);
     border-radius: 5px;
     background-color: var(--bg-secondary);
-    color: var(--text-primary);
+    color: #1a1a1a;
 }
 
 .transactions-table-container {
@@ -189,6 +181,23 @@ section h2 {
     padding: 1rem;
     text-align: left;
     border-bottom: 1px solid var(--border-color);
+    color: #1a1a1a;
+}
+
+.transactions-table th {
+    font-weight: 600;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.transactions-table tr:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Keep transaction table inputs dark */
+.transactions-table input,
+.transactions-table select {
+    color: #1a1a1a;
+    background-color: #ffffff;
 }
 
 /* Budget Section */
@@ -203,6 +212,12 @@ section h2 {
     border-radius: 10px;
     padding: 1rem;
     box-shadow: var(--card-shadow);
+}
+
+.budget-item h3,
+.budget-item p,
+.budget-details p {
+    color: #1a1a1a;
 }
 
 .progress-bar {
@@ -258,7 +273,7 @@ section h2 {
     border: 1px solid var(--border-color);
     border-radius: 5px;
     background-color: var(--bg-secondary);
-    color: var(--text-primary);
+    color: #1a1a1a;
 }
 
 /* Button Styles */
@@ -279,7 +294,7 @@ section h2 {
 
 .secondary-button {
     background-color: var(--bg-secondary);
-    color: var(--text-primary);
+    color: #1a1a1a;
     border: 1px solid var(--border-color);
 }
 
@@ -300,7 +315,7 @@ section h2 {
 
 .toast {
     background-color: var(--bg-secondary);
-    color: var(--text-primary);
+    color: #1a1a1a;
     padding: 1rem;
     border-radius: 5px;
     margin-top: 0.5rem;

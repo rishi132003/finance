@@ -303,7 +303,7 @@ class FinanceManager {
                     title: {
                         display: true,
                         text: 'Monthly Income vs Expenses',
-                        color: 'var(--text-primary)',
+                        color: '#1a1a1a',
                         font: {
                             size: 16,
                             weight: 'bold'
@@ -311,7 +311,7 @@ class FinanceManager {
                     },
                     legend: {
                         labels: {
-                            color: 'var(--text-primary)'
+                            color: '#1a1a1a'
                         }
                     }
                 },
@@ -319,20 +319,30 @@ class FinanceManager {
                     y: {
                         beginAtZero: true,
                         grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
+                            color: 'rgba(0, 0, 0, 0.1)'
                         },
                         ticks: {
-                            color: 'var(--text-primary)',
+                            color: '#1a1a1a',
                             callback: value => this.formatCurrency(value)
                         }
                     },
                     x: {
                         grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
+                            color: 'rgba(0, 0, 0, 0.1)'
                         },
                         ticks: {
-                            color: 'var(--text-primary)'
+                            color: '#1a1a1a'
                         }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#1a1a1a'
+                        }
+                    },
+                    title: {
+                        color: '#1a1a1a'
                     }
                 }
             }
@@ -378,7 +388,7 @@ class FinanceManager {
                     title: {
                         display: true,
                         text: 'Current Month Expenses by Category',
-                        color: 'var(--text-primary)',
+                        color: '#1a1a1a',
                         font: {
                             size: 16,
                             weight: 'bold'
@@ -387,7 +397,7 @@ class FinanceManager {
                     legend: {
                         position: 'right',
                         labels: {
-                            color: 'var(--text-primary)',
+                            color: '#1a1a1a',
                             usePointStyle: true,
                             padding: 20,
                             font: {
@@ -469,7 +479,7 @@ class FinanceManager {
                     title: {
                         display: true,
                         text: 'Budget vs Actual Spending (Current Month)',
-                        color: 'var(--text-primary)',
+                        color: '#1a1a1a',
                         font: {
                             size: 16,
                             weight: 'bold'
@@ -477,7 +487,7 @@ class FinanceManager {
                     },
                     legend: {
                         labels: {
-                            color: 'var(--text-primary)'
+                            color: '#1a1a1a'
                         }
                     },
                     tooltip: {
@@ -493,19 +503,19 @@ class FinanceManager {
                         stacked: false,
                         beginAtZero: true,
                         grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
+                            color: 'rgba(0, 0, 0, 0.1)'
                         },
                         ticks: {
-                            color: 'var(--text-primary)',
+                            color: '#1a1a1a',
                             callback: value => this.formatCurrency(value)
                         }
                     },
                     x: {
                         grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
+                            color: 'rgba(0, 0, 0, 0.1)'
                         },
                         ticks: {
-                            color: 'var(--text-primary)',
+                            color: '#1a1a1a',
                             maxRotation: 45,
                             minRotation: 45
                         }
@@ -539,12 +549,6 @@ class FinanceManager {
 
     // Event Listeners
     initializeEventListeners() {
-        // Theme toggle
-        document.getElementById('themeToggle').addEventListener('click', () => {
-            document.body.setAttribute('data-theme',
-                document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
-            );
-        });
 
         // Transaction modal
         document.getElementById('addTransactionBtn').addEventListener('click', () => {

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance Visualizer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Personal Finance Visualizer</h1>
+            <div class="theme-toggle">
+                <button id="themeToggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="dashboard-section">
+                <h2>Dashboard</h2>
+                <div class="summary-cards">
+                    <div class="card income-card" aria-label="Total Income">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <h3>Total Income</h3>
+                        <p class="amount" id="totalIncome">$0.00</p>
+                    </div>
+                    <div class="card expense-card" aria-label="Total Expenses">
+                        <i class="fas fa-receipt"></i>
+                        <h3>Total Expenses</h3>
+                        <p class="amount" id="totalExpenses">$0.00</p>
+                    </div>
+                    <div class="card balance-card" aria-label="Net Balance">
+                        <i class="fas fa-wallet"></i>
+                        <h3>Net Balance</h3>
+                        <p class="amount" id="netBalance">$0.00</p>
+                        <span class="balance-label" id="balanceLabel">--</span>
+                    </div>
+                    <div class="card category-card" aria-label="Top Expense Category">
+                        <i class="fas fa-chart-pie"></i>
+                        <h3>Top Category</h3>
+                        <p id="topCategory">--</p>
+                    </div>
+                    <div class="card recent-card" aria-label="Most Recent Transaction">
+                        <i class="fas fa-clock"></i>
+                        <h3>Recent Transaction</h3>
+                        <div id="recentTransaction">
+                            <p>No transactions yet</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-container">
+                    <div class="chart-wrapper">
+                        <canvas id="monthlyExpensesChart"></canvas>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="categoryPieChart"></canvas>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="budgetVsActualChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transactions Section -->
+            <section id="transactions" class="transactions-section">
+                <div class="section-header">
+                    <h2>Transactions</h2>
+                    <button id="addTransactionBtn" class="primary-button">
+                        <i class="fas fa-plus"></i> Add Transaction
+                    </button>
+                </div>
+                <div class="transactions-filters">
+                    <input type="text" id="searchTransactions" placeholder="Search transactions...">
+                    <select id="categoryFilter">
+                        <option value="">All Categories</option>
+                    </select>
+                    <select id="typeFilter">
+                        <option value="">All Types</option>
+                        <option value="income">Income</option>
+                        <option value="expense">Expense</option>
+                    </select>
+                </div>
+                <div class="transactions-table-container">
+                    <table class="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Type</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Budget Section -->
+            <section id="budgets" class="budgets-section">
+                <div class="section-header">
+                    <h2>Budgets</h2>
+                    <div class="budget-controls">
+                        <select id="budgetMonth"></select>
+                        <button id="addBudgetBtn" class="primary-button">
+                            <i class="fas fa-plus"></i> Quick Add Budget
+                        </button>
+                    </div>
+                </div>
+                <div id="budgetsList" class="budgets-list"></div>
+            </section>
+        </main>
+
+        <!-- Modals -->
+        <div id="transactionModal" class="modal" aria-hidden="true">
+            <div class="modal-content">
+                <h2 id="transactionModalTitle">Add Transaction</h2>
+                <form id="transactionForm">
+                    <div class="form-group">
+                        <label for="transactionType">Type</label>
+                        <select id="transactionType" required>
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionDescription">Description</label>
+                        <input type="text" id="transactionDescription" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionAmount">Amount</label>
+                        <input type="number" id="transactionAmount" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionDate">Date</label>
+                        <input type="date" id="transactionDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionCategory">Category</label>
+                        <select id="transactionCategory" required>
+                            <option value="">Select Category</option>
+                        </select>
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="secondary-button" onclick="closeTransactionModal()">Cancel</button>
+                        <button type="submit" class="primary-button">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="budgetModal" class="modal" aria-hidden="true">
+            <div class="modal-content">
+                <h2 id="budgetModalTitle">Add Budget</h2>
+                <form id="budgetForm">
+                    <div class="form-group">
+                        <label for="budgetCategory">Category</label>
+                        <select id="budgetCategory" required>
+                            <option value="">Select Category</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="budgetAmount">Amount</label>
+                        <input type="number" id="budgetAmount" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="budgetMonth">Month</label>
+                        <input type="month" id="budgetMonth" required>
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="secondary-button" onclick="closeBudgetModal()">Cancel</button>
+                        <button type="submit" class="primary-button">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>l>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -214,6 +214,26 @@ section h2 {
     box-shadow: var(--card-shadow);
 }
 
+.budget-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+}
+
+.delete-budget {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--expense-color);
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.delete-budget:hover {
+    opacity: 1;
+}
+
 .budget-item h3,
 .budget-item p,
 .budget-details p {

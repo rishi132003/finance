@@ -231,6 +231,9 @@ class FinanceManager {
                 <div class="budget-header">
                     <i class="fas ${CATEGORIES[category].icon}"></i>
                     <h3>${category}</h3>
+                    <button class="delete-budget" data-id="${this.budgets.find(b => b.category === category && b.month === currentMonth).id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
                 </div>
                 <div class="budget-details">
                     <p>Budgeted: ${this.formatCurrency(status.budgeted)}</p>
@@ -596,6 +599,17 @@ class FinanceManager {
             });
         });
 
+        // Budget list actions
+        document.getElementById('budgetsList').addEventListener('click', (e) => {
+            const deleteButton = e.target.closest('.delete-budget');
+            if (deleteButton) {
+                const id = deleteButton.dataset.id;
+                if (confirm('Are you sure you want to delete this budget?')) {
+                    this.deleteBudget(id);
+                }
+            }
+        });
+
         // Initialize category selects
         ['transactionCategory', 'budgetCategory'].forEach(id => {
             const select = document.getElementById(id);
@@ -694,7 +708,18 @@ class FinanceManager {
     }
 }
 
+// Modal utility functions
+function closeTransactionModal() {
+    document.getElementById('transactionModal').style.display = 'none';
+}
+
+function closeBudgetModal() {
+    document.getElementById('budgetModal').style.display = 'none';
+}
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
     window.financeManager = new FinanceManager();
+    window.closeTransactionModal = closeTransactionModal;
+    window.closeBudgetModal = closeBudgetModal;
 });
